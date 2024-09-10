@@ -1,50 +1,56 @@
 import express from "express";
-
-const DEFAULT_COLORS = ["RED", "GREEN", "BLUE"];
-
+import bodyParser from 'body-parser';
+import db from "../db.js"
 const app = express();
+app.use(bodyParser.json()); //parsing
 
-app.use(express.json());
+// creation of a table workers and inserting some datas in there.
 
-/**
- * Array holding color values
- */
-const colors = [...DEFAULT_COLORS];
-
-/**
- * Returns a list of colors
- * Response body (JSON): {results: [....]}
- */
-app.get("/colors", (req, res, next) => {
-  res.json({
-    results: colors
+// get all workers
+app.get("/hcworkers", (req, res) => {
+  let selectQuery = "SELECT * FROM hcworker";
+  db.all(selectQuery, [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.status(200).json({ rows });
   });
 });
 
-/**
- * Inserts new color in the "colors" array
- * Request body (JSON): {color: ...}
- */
-app.post("/colors", (req, res, next) => {
-  if (req.is("application/json") && typeof req.body.color === "string") {
-    const color = req.body.color.trim().toUpperCase();
-
-    if (color && !colors.includes(color)) {
-      colors.push(color);
-
-      // 201 Created
-      res.status(201).send({
-        results: colors
-      });
-
+// adding a worker into the database via postman that allows to send http request.
+app.post("/hcworkers/", (req, res) => {
+  let reqBody = req.body;
+  let insert =
+    "INSERT INTO hcworker (user_name, user_middlename, user_lastname, user_dob,user_phone,user_emergencyNumber,user_email,user_address,user_medlicense,user_natlicense,user_languages,user_team,user_center,user_organization,user_role,user_photo) VALUES (?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?, ?)";
+  let insertedValues = [
+    reqBody.user_name,
+    reqBody.user_middlename,
+    reqBody.user_lastname,
+    reqBody.user_dob,
+    reqBody.user_phone,
+    reqBody.user_emergencyNumber,
+    reqBody.user_email,
+    reqBody.user_address,
+    reqBody.user_medlicense,
+    reqBody.user_natlicense,
+    reqBody.user_languages,
+    reqBody.user_team,
+    reqBody.user_center,
+    reqBody.user_organization,
+    reqBody.user_role,
+    reqBody.user_photo,
+  ];
+  db.run(insert, insertedValues, function (err, result) {
+    if (err) {
+      res.status(400).json({ error: err.message });
       return;
     }
-  }
-
-  res.status(400).send(); // 400 Bad Request
+    res.status(201).json({
+      worker_id: this.lastID,
+      Change_made: this.changes,
+      worker_added: reqBody,
+    });
+  });
 });
-
-/**
- * Export our Express app
- */
 export default app;
