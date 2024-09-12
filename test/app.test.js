@@ -11,13 +11,13 @@ chai.use(chaiHttp);
 
 describe("API endpoints", () => {
   beforeEach(async () => {
-    const result = await db.get("DELETE FROM hcworker"); 
+    await clearDb(); 
   });
   before(async () => {});
   afterEach(async () => {
   });
   
-  // GET - List all health care workers
+
   it("should return all the health care workers", async () => {
     await addNewHcWorker(); 
     const httpResponse = await chai.request(app).get("/hcworkers");
@@ -27,7 +27,6 @@ describe("API endpoints", () => {
     expectHttpResponseToBeHcWorker(testUser,parsedHttpResponse.rows[0]);
   });
 
-  // POST - Add new worker
   it("should add a new worker", async () => {
     let httpResponse = await addNewHcWorker(); 
     expectHttpResponseCodeToBe(201, httpResponse);
@@ -38,15 +37,11 @@ describe("API endpoints", () => {
     
   });
 
-  // GET - Invalid path
   it("should return Not Found", async () => {
     const res = await chai.request(app).get("/INVALID_PATH");
     expect(res).to.have.status(404);
   });
 
-  
-
-  // POST - Bad Request
   it("should return Bad Request", async () => {
     const res = await chai.request(app).post("/hcworkers").type("form").send({
       color: "YELLOW",
@@ -54,6 +49,10 @@ describe("API endpoints", () => {
     expect(res).to.have.status(400);
   });
 });
+
+async function clearDb() {
+  return await db.get("DELETE FROM hcworker");
+}
 
 function expectHttpResponseToBeHcWorker(expectedHcWorker, actualWorker) {
   let result = _.isEqual(

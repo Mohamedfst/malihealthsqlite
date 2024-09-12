@@ -4,7 +4,8 @@ dotenv.config();
 const env = process.env.NODE_ENV;
 import dbConfig from './db.json' with {type: "json"};
 const currentEnv = dbConfig[env];
-const db = new sqlite3.Database(`./${currentEnv.data}.db`, (err) => {
+console.log(`${currentEnv.data}.db`);
+const db = new sqlite3.Database('./hcworkers.db', (err) => {
     if (err) {
       console.error("Error opening database " + err.message);
     } else {
