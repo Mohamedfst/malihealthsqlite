@@ -1,9 +1,10 @@
-import app from './app/app.js'; // Our app
+import app from './app/app.js';
+import dotenv from 'dotenv';
+dotenv.config();
+const env = process.env.NODE_ENV;
+import dbConfig from './db.json' with {type: "json"};
+const currentEnv = dbConfig[env];
 
-const PORT = 8080;
-const HOST = 'localhost';
-
-app.listen(PORT, HOST, () => {
-  console.log();
-});
-
+app.listen(currentEnv.port,() => {
+  console.log(`APP LISTENING ON http://${currentEnv.host}:${currentEnv.port}`);
+})

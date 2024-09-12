@@ -3,29 +3,11 @@ import chaiHttp from "chai-http";
 import app from "../app/app.js"; 
 import db from "../db.js";
 import _ from "lodash";
+import dbConfig from '../db.json' with {type: "json"};
+const testUser = dbConfig.testUser;
 
 chai.use(chaiHttp);
 
-const testUser = {
-  user_id: "2323432",
-  user_name: "testusermocha",
-  user_middlename: "",
-  user_lastname: "Keita",
-  user_dob: "01/03/3000",
-  user_phone: "510-282-4142",
-  user_emergencyNumber: "415-640-0262",
-  user_email: "testusermocha@malimail.com",
-  user_address: "hdkdpw8*sWkL!NSkpEq",
-  user_medlicense: "Q23qrd07",
-  user_natlicense: "US032489",
-  user_languages: "English, Spanish",
-  user_team: "Community Worker",
-  user_center: "Concord CSCOM",
-  user_organization: "CSCOM",
-  user_role: "Care Provider",
-  user_photo: "Ariel Photo",
-  created_at: "2010-04-21",
-};
 
 describe("API endpoints", () => {
   beforeEach(async () => {

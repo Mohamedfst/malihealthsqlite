@@ -1,6 +1,10 @@
 import sqlite3 from 'sqlite3';
-
-const db = new sqlite3.Database("./hcworkers.db", (err) => {
+import dotenv from 'dotenv';
+dotenv.config();
+const env = process.env.NODE_ENV;
+import dbConfig from './db.json' with {type: "json"};
+const currentEnv = dbConfig[env];
+const db = new sqlite3.Database(`./${currentEnv.data}.db`, (err) => {
     if (err) {
       console.error("Error opening database " + err.message);
     } else {

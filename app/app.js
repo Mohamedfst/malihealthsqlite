@@ -1,12 +1,9 @@
 import express from "express";
-import bodyParser from 'body-parser';
-import db from "../db.js"
+import bodyParser from "body-parser";
+import db from "../db.js";
 const app = express();
-app.use(bodyParser.json()); //parsing
+app.use(bodyParser.json());
 
-// creation of a table workers and inserting some datas in there.
-
-// get all workers
 app.get("/hcworkers", (req, res) => {
   let selectQuery = "SELECT * FROM hcworker";
   db.all(selectQuery, [], (err, rows) => {
@@ -18,7 +15,6 @@ app.get("/hcworkers", (req, res) => {
   });
 });
 
-// adding a worker into the database via postman that allows to send http request.
 app.post("/hcworkers/", (req, res) => {
   let reqBody = req.body;
   let insert =
