@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get("/hcworkers", (req, res) => {
-  let selectQuery = "SELECT * FROM hcworker";
+  let selectQuery = "SELECT * FROM healthCareWorkers";
   db.all(selectQuery, [], (err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
@@ -18,24 +18,24 @@ app.get("/hcworkers", (req, res) => {
 app.post("/hcworkers/", (req, res) => {
   let reqBody = req.body;
   let insert =
-    "INSERT INTO hcworker (user_name, user_middlename, user_lastname, user_dob,user_phone,user_emergencyNumber,user_email,user_address,user_medlicense,user_natlicense,user_languages,user_team,user_center,user_organization,user_role,user_photo) VALUES (?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?, ?)";
+    "INSERT INTO healthCareWorkers (name, middlename, lastname, dob,phone,emergencyNumber,email,address,medlicense,natlicense,languages,team,center,organization,role,photo) VALUES (?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?, ?)";
   let insertedValues = [
-    reqBody.user_name,
-    reqBody.user_middlename,
-    reqBody.user_lastname,
-    reqBody.user_dob,
-    reqBody.user_phone,
-    reqBody.user_emergencyNumber,
-    reqBody.user_email,
-    reqBody.user_address,
-    reqBody.user_medlicense,
-    reqBody.user_natlicense,
-    reqBody.user_languages,
-    reqBody.user_team,
-    reqBody.user_center,
-    reqBody.user_organization,
-    reqBody.user_role,
-    reqBody.user_photo,
+    reqBody.name,
+    reqBody.middlename,
+    reqBody.lastname,
+    reqBody.dob,
+    reqBody.phone,
+    reqBody.emergencyNumber,
+    reqBody.email,
+    reqBody.address,
+    reqBody.medlicense,
+    reqBody.natlicense,
+    reqBody.languages,
+    reqBody.team,
+    reqBody.center,
+    reqBody.organization,
+    reqBody.role,
+    reqBody.photo,
   ];
   db.run(insert, insertedValues, function (err, result) {
     if (err) {
