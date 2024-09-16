@@ -6,9 +6,13 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
+    "server": "nodemon index.js",
     "start": "cross-env NODE_ENV=development nodemon index.js",
     "start:prod": "cross-env NODE_ENV=production node index.js",
-    "test": "mocha --recursive --timeout 5000"
+    "test": "mocha --recursive --timeout 5000",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "pasimako",
   "license": "GPL-3.0",
@@ -23,6 +27,7 @@
     "chai": "^4.3.10",
     "chai-exclude": "^2.1.1",
     "chai-http": "^4.4.0",
+    "concurrently": "^9.0.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "mocha": "^10.2.0"

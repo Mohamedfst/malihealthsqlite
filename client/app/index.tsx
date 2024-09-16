@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { DataTable } from "react-native-paper";
+import { router } from "expo-router";
 import axios from "axios";
-
-const apiUrl = "http://10.0.0.103:3000/hcworkers";
 
 const index = () => {
   const [workerList, setWorkerList] = useState<string[]>([]);
   const fetchWorkerList = async () => {
     try {
-      const httpResponse = await axios.get(apiUrl);
+      const httpResponse = await axios.get(process.env.EXPO_PUBLIC_API_URL);
       setWorkerList(await httpResponse.data.rows);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -23,7 +22,7 @@ const index = () => {
   return (
     <DataTable>
       <DataTable.Header>
-        <DataTable.Title>Id</DataTable.Title>
+        <DataTable.Title sortDirection="descending">Id</DataTable.Title>
         <DataTable.Title>Name</DataTable.Title>
         <DataTable.Title numeric>DOB</DataTable.Title>
       </DataTable.Header>
@@ -31,7 +30,16 @@ const index = () => {
       {workerList &&
         workerList.map((worker, index) => (
           <DataTable.Row key={index}>
-            <DataTable.Cell>{worker.id}</DataTable.Cell>
+            <DataTable.Cell
+              onPress={() => {
+                router.push({
+                  pathname: "./details",
+                  params: worker,
+                });
+              }}
+            >
+              {worker.id}
+            </DataTable.Cell>
             <DataTable.Cell numeric>{worker.name}</DataTable.Cell>
             <DataTable.Cell numeric>{worker.dob}</DataTable.Cell>
           </DataTable.Row>
