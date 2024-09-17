@@ -1,0 +1,26 @@
+{
+  "indexPageWorkerList": {
+    "language": "changer la langue",
+    "title": "Liste des professionnels de santé",
+    "name": "Nom",
+    "dob": "Date de naissance"
+  },
+  "detailsPageWorkerList": {
+    "title": "Détails de l'utilisateur",
+    "id": "ID",
+    "name": "Nom",
+    "lastName": "Nom de famille",
+    "dob": "Date de naissance",
+    "phoneNumber": "Numéro de téléphone",
+    "emergencyNumber": "Numéro d'urgence",
+    "medicalLicense": "Numéro de licence médicale",
+    "nationaId": "Numéro National d'Identification",
+    "spokenLanguages": "Langue(s) parlée(s)",
+    "teamName": "Nom de l'équipe",
+    "centerName": "Nom du centre",
+    "organization": "Organisation",
+    "role": "Rôle",
+    "picture": "Photo",
+    "createdAt": "Date d'adhésion"
+  }
+}

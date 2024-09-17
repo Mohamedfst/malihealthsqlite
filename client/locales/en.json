@@ -1,0 +1,26 @@
+{
+  "indexPageWorkerList": {
+    "language": "Change the language",
+    "title": "List of Health Care Workers",
+    "name": "Name",
+    "dob": "Date of birth"
+  },
+  "detailsPageWorkerList": {
+    "title": "User details",
+    "id": "ID",
+    "name": "Name",
+    "lastName": "Last Name",
+    "dob": "Date of birth",
+    "phoneNumber": "Phone number",
+    "emergencyNumber": "Emergency Number",
+    "medicalLicense": "Medical License Number",
+    "nationaId": "National Identification Number",
+    "spokenLanguages": "Spoken Language(s)",
+    "teamName": "Team Name",
+    "centerName": "Center Name",
+    "organization": "Organization",
+    "role": "Role",
+    "picture": "Photo",
+    "createdAt": "Joined on"
+}
+}

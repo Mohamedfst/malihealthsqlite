@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-
+import i18next, {languageResources} from '../services/i18next';
 export default function Layout() {
   return (
     <Stack
@@ -11,7 +11,7 @@ export default function Layout() {
         headerTitleStyle: {
           fontWeight: "bold",
         },
-        headerTitle: "List of Health Care Workers",
+        headerTitle: "",
       }}
     >
       {/* Optionally configure static options outside the route.*/}
